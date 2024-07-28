@@ -1,6 +1,9 @@
-import React from "react";
+"use client"
+import React, { useContext } from "react";
+import { ContextoProductos } from "../Providers/ProviderProductos";
 
 const page = () => {
+  const {productosComprados} = useContext(ContextoProductos)
 
   return (
       <div className="w-full max-w-3xl mx-auto p-6">
@@ -49,27 +52,32 @@ const page = () => {
           </div>
         </div>
         <div className="grid gap-4">
-          <div
-            className="rounded-lg border bg-card text-card-foreground shadow-sm p-4"
-            data-v0-t="card"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <img
-                  src="/placeholder.svg"
-                  alt="Bolso de cuero"
-                  width="64"
-                  height="64"
-                  className="rounded-md"
-                />
-                <div>
-                  <h3 className="text-lg font-medium">Bolso de cuero</h3>
-                  <p className="text-muted-foreground text-sm">Orden: #12349</p>
+
+          {
+            productosComprados.map(productos  => (
+              <div
+              className="rounded-lg border bg-card text-card-foreground shadow-sm p-4"
+              data-v0-t="card"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <img
+                    src="/placeholder.svg"
+                    alt="Bolso de cuero"
+                    width="64"
+                    height="64"
+                    className="rounded-md"
+                  />
+                  <div>
+                    <h3 className="text-lg font-medium">{productos.nombre} </h3>
+                    <p className="text-muted-foreground text-sm">${productos.precio} </p>
+                  </div>
                 </div>
+                <div className="text-right"></div>
               </div>
-              <div className="text-right"></div>
             </div>
-          </div>
+            ))
+          }
         </div>
       </div>
   );

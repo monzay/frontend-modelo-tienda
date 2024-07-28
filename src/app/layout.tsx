@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import { ProviderProductos } from "./Providers/ProviderProductos";
+import { usePathname } from 'next/navigation';
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -14,38 +17,33 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body style={{display:"flex"}}  className={inter.className}>
-      <div className="bg-muted p-4 md:p-6 border-r">
-            <nav className="flex flex-col gap-4">
+      <ProviderProductos>
+      <div id="header-vertical" className="bg-muted border-r">
+            <nav id="nav-header-vertical" className="flex flex-col">
             <Link href="/">
+              <div id="item-header-vertical">
               Inicio
+              </div>
               </Link>
-              <a
-                className="text-muted-foreground hover:text-foreground"
-                href="#"
-              >
-                Productos
-              </a>
-              <a
-                className="text-muted-foreground hover:text-foreground"
-                href="#"
-              >
-                Nosotros
-              </a>
-              <a
-                className="text-muted-foreground hover:text-foreground"
-                href="#"
-              >
-                Contacto
-              </a>
+              <Link href="/sobreNosotros">
+             <div id="item-header-vertical">
+             nosotros
+             </div >
+              </Link>
               <Link href="/perfil">
+              <div id="item-header-vertical">
               perfil
+              </div>
               </Link>
             </nav>
           </div>
+          
         {children}
+        </ProviderProductos>
         </body>
     </html>
   );
