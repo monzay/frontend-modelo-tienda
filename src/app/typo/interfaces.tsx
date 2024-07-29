@@ -9,3 +9,8 @@ export interface TypeCarrito {
   nombre:string,
   precio:number
 }
+export interface ParamsTypes { 
+  nombre:string
+  valor:string
+  diasParaExpirar : number 
+ }

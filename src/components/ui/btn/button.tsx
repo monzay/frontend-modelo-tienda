@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import { findRenderedComponentWithType } from 'react-dom/test-utils'
 
 interface TypeProps {
     txt:string

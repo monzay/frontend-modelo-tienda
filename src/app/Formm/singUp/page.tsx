@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
-import { Label } from "@radix-ui/react-label";
-import { Input } from "./Input";
+import React, { useState } from "react";
+import { Label } from "@/components/ui/form/label";
+import { Input } from "@/components/ui/form/Input";
 import { cn } from "@/lib/utils";
 import {
   IconBrandGithub,
@@ -9,46 +9,42 @@ import {
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 
-export function SignupFormDemo() {
+
+interface SingUpTypes {
+  email:string,
+  password:string
+}
+
+export default function page() {
+  const [credenciales,setCredenciales] = useState<SingUpTypes>({
+    email:"",
+    password:""
+  })
+
+  
+  // listo pa hace vos la logica del singUp 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    
   };
+
+
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-        Bienvenido 
+       Registrate
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-        registrate para acceder a nuestro tienda 
+         Registrate para tenes acceso a todos nuestro productos
       </p>
-
       <form className="my-8" onSubmit={handleSubmit}>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label htmlFor="firstname">Nombre</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastname">Apellido</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
-          </LabelInputContainer>
-        </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Input onChange={(e: React.ChangeEvent<HTMLInputElement>)=>  setCredenciales((prev) => ({...prev,email:e.target.value}))} id="email" placeholder="projectmayhem@fc.com" type="email" />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">Contraseña</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-8">
-          <Label htmlFor="twitterpassword">Repite la contraseña</Label>
-          <Input
-            id="twitterpassword"
-            placeholder="••••••••"
-            type="twitterpassword"
-          />
+          <Label htmlFor="password">Password</Label>
+          <Input onChange={(e: React.ChangeEvent<HTMLInputElement>)=>  setCredenciales((prev) => ({...prev,password:e.target.value}))} id="password" placeholder="••••••••" type="password" />
         </LabelInputContainer>
 
         <button
@@ -60,7 +56,6 @@ export function SignupFormDemo() {
         </button>
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
-
         <div className="flex flex-col space-y-4">
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
@@ -72,6 +67,7 @@ export function SignupFormDemo() {
             </span>
             <BottomGradient />
           </button>
+         
         </div>
       </form>
     </div>

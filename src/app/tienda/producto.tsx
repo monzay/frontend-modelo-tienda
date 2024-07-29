@@ -1,7 +1,7 @@
 "use client"
 import React, { useContext, useState,useEffect } from "react";
-import { ApiProducto } from "./typo/interfaces";
-import { ContextoProductos } from "./Providers/ProviderProductos";
+import { ApiProducto } from "../typo/interfaces";
+import { ContextoProductos } from "../Providers/ProviderProductos";
 import Button from "@/components/ui/btn/button";
 import { useRouter } from "next/navigation";
 
@@ -10,7 +10,6 @@ interface Props {
   dataProducto: ApiProducto;
   index: number;
 }
-
  /////////////////////////////////////////////////////////////////////////////////////
 
 const Producto : React.FC<Props> =({ dataProducto, index  }) =>  {
@@ -22,7 +21,7 @@ const Producto : React.FC<Props> =({ dataProducto, index  }) =>  {
    /////////////////////////////////////////////////////////////////////////////////////
   
   function redireccionaAlProducto() {
-    router.push(`/productos/${dataProducto.id}`);
+    router.push(`/tienda/productos/${dataProducto.id}`);
   }
 
  function clickEliminarProducto (){

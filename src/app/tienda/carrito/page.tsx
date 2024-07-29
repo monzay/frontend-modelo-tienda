@@ -1,7 +1,7 @@
 "use client"
 import React, { useContext ,useEffect, useState} from "react";
 import Button from "@/components/ui/btn/button";
-import { ContextoProductos } from "../Providers/ProviderProductos";
+import { ContextoProductos } from "../../Providers/ProviderProductos";
 import { Castoro } from "next/font/google";
 
 const page = () => {
@@ -13,7 +13,6 @@ const page = () => {
     function clickEliminarProductoCarrito(id: number) : void  {
       setCarrito(prev => prev.filter(producto => producto !== producto))
     } /////////////////////////////////////////////////////////////////////////////////////
-
 
     // cargamos todos los datos del carrito al estado
     

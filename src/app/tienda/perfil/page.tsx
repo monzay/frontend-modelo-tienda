@@ -1,10 +1,9 @@
 "use client"
 import React, { useContext } from "react";
-import { ContextoProductos } from "../Providers/ProviderProductos";
+import { ContextoProductos } from "../../Providers/ProviderProductos";
 
 const page = () => {
   const {productosComprados} = useContext(ContextoProductos)
-
   return (
       <div className="w-full max-w-3xl mx-auto p-6">
         <div className="flex items-center justify-between mb-6">

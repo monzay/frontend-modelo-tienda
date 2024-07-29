@@ -1,54 +1,107 @@
 "use client"
-import React, { use, useContext, useEffect, useState } from "react";
-import Producto from "./producto";
-import { TypeCarrito } from "./typo/interfaces";
-import Header from "@/components/Header";
-import { ContextoProductos } from "./Providers/ProviderProductos";
+import Presentacion from '@/components/presentacion/Presentacion'
+import Button from '@/components/ui/btn/button'
+import { Carusel } from '@/components/ui/carusel/Carusel'
+import { useRouter } from 'next/navigation'
+import React, { useState ,useEffect} from 'react'
 
-  
-const page =  () => { 
-   const {productos} = useContext(ContextoProductos)
-   const [palabra,setPalabra] = useState("")
-   const [productoFiltrados,setProductosFiltrados] = useState<TypeCarrito[]>([])
-  
-   /////////////////////////////////////////////////////////////////////////////////////
 
+
+const page = () => {
+   const router = useRouter()
+
+  function redireccionarAlLogin(){
+    router.push("/Formm/Login")
+  }
   
-   // funcion para buscar el producto por el usuario 
-   useEffect(() => {
-    function buscandoProducto(): void {
-      const productoEncontrado = productos.filter((producto) =>
-        producto.nombre.toLocaleLowerCase().includes(palabra.trim().toLocaleLowerCase())
-      );
-      // se inicializa para que se pueda ver todos los productos al cargar la pagina
-      setProductosFiltrados(productos) 
-      // filtra lso producto por la letras del usuaio 
-      setProductosFiltrados(productoEncontrado);
+
+  useEffect(() => {
+    const elementoDom = document.getElementById("titulo");
+    if (elementoDom) {
+      const frase = "ienvenido a metamorfosis";
+      let index = 0;
+      const interval = setInterval(() => {
+        if (index < frase.length) {
+          elementoDom.textContent += frase[index];
+          index++;
+        } else {
+          clearInterval(interval);
+        }
+      },50);
+  
+      // Limpieza del efecto
+      return () => clearInterval(interval);
     }
-    buscandoProducto();
-  }, [palabra,productos]);
+  }, []);
   
-  /////////////////////////////////////////////////////////////////////////////////////ç
+  function redireccionarAlSingUp(){
+    router.push("/Formm/singUp")
+  }
 
   
   return (
-    <div style={{width:"100%"}}>
-      <div className="flex flex-col min-h-screen">
-        <Header setPalabra={setPalabra}></Header>
-        <div  >
-          <main className="flex-1 px-4 md:px-6 py-8">
-            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-           {
-                productoFiltrados.map( (producto,index)  => (
-                    <Producto dataProducto={producto} index={index} ></Producto>
-                ))
-            }  
-            </section>
-          </main>
+<div  style={{display:"flex",width:"100%",flexDirection:'column'}} className="flex flex-col min-h-screen">
+  <header className="bg-primary text-primary-foreground py-4 px-4 sm:px-6 md:px-8 flex items-center justify-between">
+    <a className="text-2xl font-bold" href="#">
+     metamorfosis 
+    </a>
+    <nav className="hidden sm:flex items-center gap-4 sm:gap-6">
+      <Button txt='iniciar sesion'click={redireccionarAlLogin } ></Button>
+      <Button txt='resgistrame' click={redireccionarAlSingUp} ></Button>
+    </nav>
+  </header>
+  <main className="flex-1">
+    <section className="bg-[url('/hero-image.jpg')] bg-cover bg-center py-20 px-4 sm:py-32 sm:px-6 md:px-8 flex items-center justify-center text-center">
+      <div className="max-w-3xl space-y-6">
+        <h1 id="titulo" className="text-3xl  sm:text-4xl md:text-6xl font-bold text-primary-foreground">
+         B
+        </h1>
+        <p className="text-base sm:text-lg md:text-xl text-primary-foreground">
+          Disfruta de una experiencia culinaria excepcional en un ambiente elegante y relajado.
+        </p>
+        <button onClick={redireccionarAlSingUp} id="btn-seccion-portada">Tienda</button>
+      </div>
+    </section>
+    <section>
+      <Carusel>
+      </Carusel>
+    </section>
+    <section className="py-8 sm:py-12 md:py-20 px-4 sm:px-6 md:px-8">
+      <div className="max-w-5xl mx-auto grid sm:grid-cols-2 gap-6 sm:gap-8">
+        <div>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Sobre Nosotros</h2>
+          <p className="text-muted-foreground">
+            Restaurante Moderno es un lugar donde la excelencia culinaria se combina con un ambiente acogedor y
+            elegante. Nuestro equipo de chefs expertos crea platos innovadores utilizando los mejores ingredientes
+            frescos y de temporada.
+          </p>
+          <p className="text-muted-foreground">
+            Nos enorgullece ofrecer una experiencia gastronómica excepcional, con un servicio atento y
+            personalizado. Visítanos y déjate sorprender por nuestros sabores únicos.
+          </p>
         </div>
       </div>
-    </div>
-  );
-};
+    </section>
+  </main>
+  <footer className="bg-primary text-primary-foreground py-4 sm:py-6 px-4 sm:px-6 md:px-8 flex items-center justify-between">
+    <p className="text-sm">© 2024 Restaurante Moderno. Todos los derechos reservados.</p>
+    <nav className="hidden sm:flex items-center gap-4 sm:gap-6">
+      <a className="hover:underline" href="#">
+        Inicio
+      </a>
+      <a className="hover:underline" href="#">
+        Menú
+      </a>
+      <a className="hover:underline" href="#">
+        Sobre Nosotros
+      </a>
+      <a className="hover:underline" href="#">
+        Contacto
+      </a>
+    </nav>
+  </footer>
+</div>
+  )
+}
 
-export default page;
+export default page

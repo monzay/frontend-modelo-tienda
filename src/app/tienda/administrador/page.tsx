@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, ChangeEvent } from 'react'
-import { ContextoProductos } from '../Providers/ProviderProductos';
+import { ContextoProductos } from '../../Providers/ProviderProductos';
 
 const Page: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -15,6 +15,7 @@ const Page: React.FC = () => {
     }
   };
   
+  
 
   const handleNombre = (event: ChangeEvent<HTMLInputElement>)  =>{
     setNombreProducto(event.target.value)
@@ -23,8 +24,7 @@ const handleDescripcion  = (event: ChangeEvent<HTMLTextAreaElement>)  =>{
     setDescripcioProducto(event.target.value)
     console.log(descripciónProducto)
 }
-  
-  
+
 
 
   return (
