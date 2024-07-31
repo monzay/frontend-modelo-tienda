@@ -8,8 +8,7 @@ import {
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
-
-
+import Link from "next/link";
 interface SingUpTypes {
   email:string,
   password:string
@@ -20,33 +19,31 @@ export default function page() {
     email:"",
     password:""
   })
-
   
   // listo pa hace vos la logica del singUp 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
   };
 
 
   return (
-    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+    <div style={{width:"100%",height:"100vh",background:"black",alignItems:"center",paddingTop:"40px"}}>
+         <div  className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-       Registrate
+      Iniciar sesion
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-         Registrate para tenes acceso a todos nuestro productos
+        Inicia sesion para para acceder a nuestros productos
       </p>
       <form className="my-8" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email</Label>
-          <Input onChange={(e: React.ChangeEvent<HTMLInputElement>)=>  setCredenciales((prev) => ({...prev,email:e.target.value}))} id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Input onChange={(e: React.ChangeEvent<HTMLInputElement>)=>  setCredenciales((prev) => ({...prev,email:e.target.value}))} id="email" placeholder="ejemplo@gmail.com" type="email" />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
           <Input onChange={(e: React.ChangeEvent<HTMLInputElement>)=>  setCredenciales((prev) => ({...prev,password:e.target.value}))} id="password" placeholder="••••••••" type="password" />
         </LabelInputContainer>
-
         <button
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
@@ -67,10 +64,14 @@ export default function page() {
             </span>
             <BottomGradient />
           </button>
-         
         </div>
       </form>
+      <p style={{color:"white"}}>
+       no tenes una cuenta <Link style={{color:"blue"}} href="./Login">registrate</Link>
+      </p>
     </div>
+    </div>
+   
   );
 }
 

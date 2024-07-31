@@ -83,22 +83,8 @@ const page = () => {
       </div>
     </section>
   </main>
-  <footer className="bg-primary text-primary-foreground py-4 sm:py-6 px-4 sm:px-6 md:px-8 flex items-center justify-between">
-    <p className="text-sm">© 2024 Restaurante Moderno. Todos los derechos reservados.</p>
-    <nav className="hidden sm:flex items-center gap-4 sm:gap-6">
-      <a className="hover:underline" href="#">
-        Inicio
-      </a>
-      <a className="hover:underline" href="#">
-        Menú
-      </a>
-      <a className="hover:underline" href="#">
-        Sobre Nosotros
-      </a>
-      <a className="hover:underline" href="#">
-        Contacto
-      </a>
-    </nav>
+  <footer className="flex flex-col bg-primary text-primary-foreground py-4 sm:py-6 px-4 sm:px-6 md:px-8  items-center justify-between">
+    <p className="text-sm">© 2024 Tienda .Todos los derechos reservado</p>
   </footer>
 </div>
   )

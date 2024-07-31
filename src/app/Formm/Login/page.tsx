@@ -7,6 +7,12 @@ import {
   IconBrandGoogle,
 } from "@tabler/icons-react";
 import { ParamsTypes } from "@/app/typo/interfaces";
+import Link from "next/link";
+
+
+
+
+
 
 export default function page () {
    //ESTADOS
@@ -45,8 +51,6 @@ export default function page () {
     // Si no encuentra la cookie, devuelve una cadena vacía
     return "";
   }
-
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const dataToSend = {
@@ -77,16 +81,14 @@ export default function page () {
       console.error("Failed to create user:", error);
     }
   };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   };
-
+  
    ///////////////////////////////////////////////////////////////////
-
    // hoock
 
   useEffect(() => {
@@ -113,9 +115,7 @@ export default function page () {
     fetchCsrfToken();
   }, []);
 
-  
   return (
-  
     <div style={{display:"flex",width:"100%",background:"black"}}>
         <div   className=" max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
@@ -124,26 +124,25 @@ export default function page () {
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
       Bienvenido registrate para poder acceder a todos nuestro porductos 
       </p>
-
       <form className="my-8" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="firstname">Nombre</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" value={formData.firstname} onChange={handleChange} />
+            <Input id="firstname" placeholder="Nombre" type="text" value={formData.firstname} onChange={handleChange} />
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="lastname">Apellido</Label>
-            <Input id="lastname" placeholder="Durden" type="text" value={formData.lastname} onChange={handleChange} />
+            <Input id="lastname" placeholder="Apellido" type="text" value={formData.lastname} onChange={handleChange} />
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" value={formData.email} onChange={handleChange} />
+          <Input id="email" placeholder="Ejemplo@gmail.com" type="email" value={formData.email} onChange={handleChange} />
         </LabelInputContainer>
 
         <LabelInputContainer className="mb-4">
           <Label htmlFor="celular">Celular</Label>
-          <Input id="celular"  type="celular" value={formData.celular} onChange={handleChange} />
+          <Input id="celular"  placeholder="123" type="celular" value={formData.celular} onChange={handleChange} />
         </LabelInputContainer>
 
         <LabelInputContainer className="mb-4">
@@ -158,7 +157,7 @@ export default function page () {
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
         >
-          Sign up &rarr;
+          Enviar &rarr;
           <BottomGradient />
         </button>
 
@@ -168,7 +167,6 @@ export default function page () {
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="button"
-            onClick={() => console.log('Google signup')}
           >
             <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
@@ -178,6 +176,7 @@ export default function page () {
           </button>
         </div>
       </form>
+      <p style={{color:"white"}}>ya tenes una cuenta <Link style={{color:"blue"}} href="./singUp"> Iniciar sesion</Link> </p>
     </div>
     </div>
   );

@@ -7,7 +7,7 @@ body {
     width: 160px;
     position: fixed;
     left: 0;
-    background-color: black;
+    color: black;
   }
   #nav-header-vertical{
     padding: 60px 0px;
@@ -19,16 +19,13 @@ body {
    width: 100%;
    height: 40px;
    margin: 1px 0px;
-   color: white;
   }
-  
   #item-header-vertical:hover{
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
     border-radius: 4px;
     transition: 0.5s;
-    color:  rgb(0, 0, 0);
+    color: white;
   }
-  
   #header-horizontal{
   }
   
@@ -48,6 +45,35 @@ body {
     color: white
   
   }
+
+
+  #seccion-todos-los-productos{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #seccion-todos-los-productos-producto{
+    height: 35px;
+    width: 100%;
+    transition: 0.2s;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;  
+    text-align: center;  
+    cursor: pointer;
+  }
+  
+  #seccion-todos-los-productos-producto:hover{
+    background-color: rgb(0, 0, 0);
+    color: white;
+  }
+
+  #producto-tienda{
+  }
+
+
   @media (max-width: 800px) {
     body {
       padding-left: 0;

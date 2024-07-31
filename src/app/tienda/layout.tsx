@@ -9,19 +9,24 @@ const layout = ({children} : {children:React.ReactNode}) => {
         <ProviderProductos>
     <div id="header-vertical" className="bg-muted border-r">
             <nav id="nav-header-vertical" className="flex flex-col">
-            <Link href="/">
+            <Link href="/tienda">
               <div id="item-header-vertical">
               Inicio
               </div>
               </Link>
-              <Link href="/sobreNosotros">
+              <Link href="./tienda/sobreNosotros">
              <div id="item-header-vertical">
              nosotros
              </div >
               </Link>
-              <Link href="/perfil">
+              <Link href="./tienda/perfil">
               <div id="item-header-vertical">
               perfil
+              </div>
+              </Link>
+              <Link href="./tienda/todoLosProductos">
+              <div id="item-header-vertical">
+              todos los productos
               </div>
               </Link>
             </nav>

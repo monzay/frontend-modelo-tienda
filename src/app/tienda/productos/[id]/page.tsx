@@ -27,7 +27,6 @@ interface PageProps {
           const productoFiltrado = productos.filter(producto => producto.id === parseInt(params.id))
           setMostrarProducto(productoFiltrado)
           setEstaCargando(false)
-          console.log(productoFiltrado)
         }
         cargarProducto()
       }, [productos, params.id])
@@ -67,18 +66,21 @@ interface PageProps {
 
     
     return (
-    <div style={{background:"black",color:"white"}}> 
+    <div > 
 <div   className="grid md:grid-cols-2 gap-6 lg:gap-12 items-start max-w-6xl px-4 mx-auto py-6">
   <div className="grid gap-4 md:gap-10 items-start">
     <div className="grid gap-4">
-      <img className="aspect-[16/9] object-cover border w-full rounded-lg overflow-hidden" />
+      <img  src="https://i.pinimg.com/564x/7d/c1/f2/7dc1f2a84d02c8938e6c9399f43e8aaf.jpg" className="aspect-[16/9] object-cover border w-full rounded-lg overflow-hidden" ></img>
     </div>
     <div className="grid gap-4 md:gap-10">
       <div className="grid gap-2">
         <h1 className="font-bold text-3xl lg:text-4xl">{ mostrarProductos[0].nombre} </h1>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center">
         <div className="text-4xl font-bold">${mostrarProductos[0].precio} </div>
+      </div>
+      <div>
+        cantidas : 4 
       </div>
     <button className={`${agregadoAlCarito ? "activar-agregado-al-carrito" : "btn-carritos"}`} onClick={agregarAlCarrito} >
       {agregadoAlCarito ? "Agregado al carrito": "Agregar al carrito"}
@@ -91,16 +93,9 @@ interface PageProps {
         <h3 className="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Detalles del producto</h3>
       </div>
       <div className="p-6">
-        <div className="grid gap-4 text-sm leading-loose">
+        <div className="grid text-sm leading-loose">
           <p>
-            Presentamos la Camiseta Acme Circles, una mezcla perfecta de estilo y comodidad para el individuo
-            moderno. Esta camiseta está fabricada con una composición meticulosa de 60% algodón peinado anillado y
-            40% poliéster jersey, asegurando una tela suave y transpirable que se siente delicada contra la piel.
-          </p>
-          <p>
-            El diseño de la Camiseta Acme Circles es tan impactante como cómodo. La camiseta presenta un patrón
-            inspirado en un prisma único que agrega un toque moderno y llamativo a tu conjunto.Circles es tan
-            impactante como cómodo. La camiseta presenta un patrón inspirado en un prisma
+            descripcion
           </p>
         </div>
       </div>
@@ -113,10 +108,12 @@ interface PageProps {
       </div>
       <div className="p-6">
         <div className="grid gap-4 text-sm leading-loose">
-          <p>- Composición: 60% algodón peinado anillado, 40% poliéster jersey</p>
-          <p>- Corte: Estándar</p>
-          <p>- Cuello: Redondo</p>
-          <p>- Mangas: Cortas</p>
+          casdsadsa
+          dasdsadsad
+          dasdasdas
+          asdadas
+          dad
+          das
         </div>
       </div>
     </div>
