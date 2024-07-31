@@ -19,7 +19,7 @@ const layout = ({children} : {children:React.ReactNode}) => {
              nosotros
              </div >
               </Link>
-              <Link href="./tienda/perfil">
+              <Link href="/profile">
               <div id="item-header-vertical">
               perfil
               </div>

@@ -11,7 +11,7 @@ const page = () => {
    const router = useRouter()
 
   function redireccionarAlLogin(){
-    router.push("/Formm/Login")
+    router.push("/form/Login")
   }
   
 
@@ -35,7 +35,7 @@ const page = () => {
   }, []);
   
   function redireccionarAlSingUp(){
-    router.push("/Formm/singUp")
+    router.push("/form/singUp")
   }
 
   
