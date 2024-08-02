@@ -12,6 +12,10 @@ export default function Page() {
   const [showForm, setShowForm] = useState(false); // Estado para controlar la visibilidad del formulario
   const [newAddress, setNewAddress] = useState({ street: '', city: '', state: '', zipCode: '' }); // Estado para la nueva dirección
   const router = useRouter();
+  
+
+
+
 
   const handleAddAddress = () => {
     setShowForm(true);
@@ -26,6 +30,7 @@ export default function Page() {
       const decodedToken = decodeToken<JwtPayload>(token!);
       const userId = decodedToken.sub;
 
+     
       const response = await fetch('http://localhost:4000/address', {
         method: 'POST',
         headers: {

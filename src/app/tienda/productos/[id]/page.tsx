@@ -12,6 +12,8 @@ interface PageProps {
 
   
   const page = ({params} :PageProps   ) => {
+
+    
     const {productos,setCarrito,carrito} = useContext(ContextoProductos)
     const [mostrarProductos,setMostrarProducto] = useState<TypeCarrito[]>([])
     const [estaCargando, setEstaCargando] = useState(true)
@@ -49,8 +51,6 @@ interface PageProps {
       useEffect(() => {
         localStorage.setItem("carrito",JSON.stringify(carrito))
       }, [carrito])
-      
-
  
 
       
@@ -74,13 +74,13 @@ interface PageProps {
     </div>
     <div className="grid gap-4 md:gap-10">
       <div className="grid gap-2">
-        <h1 className="font-bold text-3xl lg:text-4xl">{ mostrarProductos[0].nombre} </h1>
+        <h1 className="font-bold text-3xl lg:text-4xl">{ mostrarProductos[0].name} </h1>
       </div>
       <div className="flex items-center">
-        <div className="text-4xl font-bold">${mostrarProductos[0].precio} </div>
+        <div className="text-4xl font-bold">${mostrarProductos[0].price} </div>
       </div>
       <div>
-        cantidas : 4 
+        cantidas : {mostrarProductos[0].stock}
       </div>
     <button className={`${agregadoAlCarito ? "activar-agregado-al-carrito" : "btn-carritos"}`} onClick={agregarAlCarrito} >
       {agregadoAlCarito ? "Agregado al carrito": "Agregar al carrito"}
@@ -95,25 +95,8 @@ interface PageProps {
       <div className="p-6">
         <div className="grid text-sm leading-loose">
           <p>
-            descripcion
+            {mostrarProductos[0].description}
           </p>
-        </div>
-      </div>
-    </div>
-    <div className="rounded-lg  bg-card text-card-foreground shadow-sm" data-v0-t="card">
-      <div className="flex flex-col space-y-1.5 p-6">
-        <h3 className="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">
-          Especificaciones técnicas
-        </h3>
-      </div>
-      <div className="p-6">
-        <div className="grid gap-4 text-sm leading-loose">
-          casdsadsa
-          dasdsadsad
-          dasdasdas
-          asdadas
-          dad
-          das
         </div>
       </div>
     </div>

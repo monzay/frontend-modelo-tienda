@@ -23,6 +23,9 @@ function decodeToken<T>(token: string): T {
   }).join(''));
   return JSON.parse(jsonPayload) as T;
 }
+const token = localStorage.getItem('access_token');
+console.log(token)
+console.log("fsdfsd")
 
 export default function Page() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -32,6 +35,10 @@ export default function Page() {
   const [newAddress, setNewAddress] = useState({ street: '', city: '', zip: '' }); // Estado para la nueva dirección
   const router = useRouter();
 
+
+  const token = localStorage.getItem('access_token');
+console.log(token)
+console.log("fsdfsd")
   useEffect(() => {
     const fetchUserProfile = async () => {
       const token = localStorage.getItem('access_token');
@@ -41,7 +48,7 @@ export default function Page() {
       }
 
       try {
-        const decodedToken = decodeToken<JwtPayload>(token); // Decodifica el token manualmente
+        const decodedToken = decodeToken<JwtPayload>(token); 
         const userId = decodedToken.sub;
 
         const response = await fetch(`http://localhost:4000/api/user/${userId}`, {

@@ -44,7 +44,7 @@ const page = () => {
               data-v0-t="card"
             >
               <div className="flex items-center justify-between" >
-                               <div className="flex items-center  gap-2 "  >
+                   <div className="flex items-center  gap-2 "  >
                   <img className="rounded-md" />
                   <div>
                     <h3 className="text-lg font-medium">{productosCarrito.nombre} </h3>
@@ -58,6 +58,9 @@ const page = () => {
           </div>
          ))
        }
+       <div>
+         <button>comprar</button>
+       </div>
     </div>
   );
 };

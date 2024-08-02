@@ -1,9 +1,15 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { ProviderProductos } from '../Providers/ProviderProductos'
 import "./tienda.css"
 
 const layout = ({children} : {children:React.ReactNode}) => {
+
+
+  const [permisos,setPermisos] = useState(true)
+  
+
   return (
     <div style={{width:"100%"}}>
         <ProviderProductos>
@@ -29,6 +35,15 @@ const layout = ({children} : {children:React.ReactNode}) => {
               todos los productos
               </div>
               </Link>
+              { permisos &&
+                 <>
+             <Link href="./tienda/administrador">
+              <div id="item-header-vertical">
+              administracion
+              </div>
+              </Link>
+                </>
+              }
             </nav>
           </div>
           {children}

@@ -20,7 +20,7 @@ const useUserProfile = () => {
       try {
         const decodedToken = decodeToken<JwtPayload>(token); // Decodifica el token manualmente
         const userId = decodedToken.sub;
-
+        
         const response = await fetch(`http://localhost:4000/api/user/${userId}`, {
           method: 'GET',
           headers: {
@@ -28,6 +28,7 @@ const useUserProfile = () => {
             'Content-Type': 'application/json',
           },
         });
+        
 
         if (!response.ok) {
           throw new Error('Failed to fetch user profile');

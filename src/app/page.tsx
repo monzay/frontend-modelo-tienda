@@ -1,19 +1,38 @@
 "use client"
-import Presentacion from '@/components/presentacion/Presentacion'
 import Button from '@/components/ui/btn/button'
 import { Carusel } from '@/components/ui/carusel/Carusel'
 import { useRouter } from 'next/navigation'
-import React, { useState ,useEffect} from 'react'
-
+import React, { useEffect, useState} from 'react'
 
 
 const page = () => {
    const router = useRouter()
+   const [mostrarBtnForm,setMostrarBtnForm] = useState(true)
 
   function redireccionarAlLogin(){
-    router.push("/form/Login")
+    router.push("/form/login")
   }
   
+  function redirecionarSingUo(){
+    router.push("/form/singUp")
+  }
+
+  function redireccion(){
+    const token = localStorage.getItem("access_token")
+    if(token){
+      router.push("/tienda")
+    }else{
+       router.push("/form/login")
+    }
+  }
+
+useEffect(() => {
+  const token = localStorage.getItem("access_token")
+  if(token){
+    setMostrarBtnForm(false)
+  }
+}, [])
+
 
   useEffect(() => {
     const elementoDom = document.getElementById("titulo");
@@ -34,9 +53,7 @@ const page = () => {
     }
   }, []);
   
-  function redireccionarAlSingUp(){
-    router.push("/form/singUp")
-  }
+
 
   
   return (
@@ -46,8 +63,14 @@ const page = () => {
      metamorfosis 
     </a>
     <nav className="hidden sm:flex items-center gap-4 sm:gap-6">
-      <Button txt='iniciar sesion'click={redireccionarAlLogin } ></Button>
-      <Button txt='resgistrame' click={redireccionarAlSingUp} ></Button>
+     {
+      mostrarBtnForm && (
+       <div>
+         <Button txt='iniciar sesion'click={redirecionarSingUo} ></Button>
+         <Button txt='resgistrame' click={redireccionarAlLogin} ></Button>
+       </div>
+      )
+     }
     </nav>
   </header>
   <main className="flex-1">
@@ -59,7 +82,7 @@ const page = () => {
         <p className="text-base sm:text-lg md:text-xl text-primary-foreground">
           Disfruta de una experiencia culinaria excepcional en un ambiente elegante y relajado.
         </p>
-        <button onClick={redireccionarAlSingUp} id="btn-seccion-portada">Tienda</button>
+        <button onClick={redireccion} id="btn-seccion-portada">Tienda</button>
       </div>
     </section>
     <section>
