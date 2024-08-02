@@ -16,7 +16,6 @@ const useUserProfile = () => {
         router.push('/login');
         return;
       }
-
       try {
         const decodedToken = decodeToken<JwtPayload>(token); // Decodifica el token manualmente
         const userId = decodedToken.sub;
@@ -28,12 +27,9 @@ const useUserProfile = () => {
             'Content-Type': 'application/json',
           },
         });
-        
-
         if (!response.ok) {
           throw new Error('Failed to fetch user profile');
         }
-
         const data = await response.json();
         console.log('Datos completos del perfil del usuario:', data); // Imprime los datos completos en la consola
         setProfile(data);

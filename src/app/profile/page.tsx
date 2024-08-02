@@ -13,6 +13,9 @@ export default function Page() {
   const [newAddress, setNewAddress] = useState({ street: '', city: '', state: '', zipCode: '' }); // Estado para la nueva dirección
   const router = useRouter();
   
+ const token = localStorage.getItem("access_token")
+ console.log(token)
+ const decodedToken = decodeToken<JwtPayload>(token!);
 
 
 
@@ -31,7 +34,8 @@ export default function Page() {
       const userId = decodedToken.sub;
 
      
-      const response = await fetch('http://localhost:4000/address', {
+      const response = await fetch(`http://localhost:4000/api/user/${userId}`, {
+
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

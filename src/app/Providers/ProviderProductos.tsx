@@ -1,6 +1,7 @@
 "use client"
 import React, { createContext, useState, ReactNode, SetStateAction,useEffect } from 'react';
 import {TypeCarrito } from '../typo/interfaces';
+import { cookies } from 'next/headers';
 
 
 interface ContextoProductoType {
@@ -23,7 +24,6 @@ export const ContextoProductos = createContext<ContextoProductoType>({
 });
 
 
- /////////////////////////////////////////////////////////////////////////////////////
 export const ProviderProductos: React.FC<ProviderProductosProps> = ({ children }) => {
 
   const [productos, setProductos] = useState([]);
@@ -47,15 +47,12 @@ export const ProviderProductos: React.FC<ProviderProductosProps> = ({ children }
         }
         const datos = await respuesta.json();
         setProductos(datos)
-       console.log(datos)
       } catch (error) {
         console.error('Error:', error);
       }
     };
     obtenerProductos();
   }, []);
-  
-  
    /////////////////////////////////////////////////////////////////////////////////////
   
 

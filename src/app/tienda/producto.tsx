@@ -20,6 +20,9 @@ const Producto: React.FC<Props> = ({ dataProducto, index }) => {
     router.push(`/tienda/productos/${dataProducto.id}`);
   }
 
+
+
+  // FUNCION LISTA
   async function clickEliminarProducto(id: number) {
     const token = localStorage.getItem('access_token');
     try {
@@ -56,7 +59,6 @@ const Producto: React.FC<Props> = ({ dataProducto, index }) => {
       <div className="p-4 bg-background rounded-b-lg">
         <h3 className="text-xl font-bold">{dataProducto.name}</h3>
         <h4 className="text-lg font-semibold">${dataProducto.price}</h4>
-       
         {modoAdministrador && (
           <>
          

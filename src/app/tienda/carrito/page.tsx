@@ -3,34 +3,37 @@ import React, { useContext ,useEffect, useState} from "react";
 import Button from "@/components/ui/btn/button";
 import { ContextoProductos } from "../../Providers/ProviderProductos";
 import { Castoro } from "next/font/google";
+import { exit } from "process";
 
 const page = () => {
 
   const{carrito,setCarrito} = useContext(ContextoProductos)
     
-      /////////////////////////////////////////////////////////////////////////////////////
-  
+    /////////////////////////////////////////////////////////////////////////////////////
     function clickEliminarProductoCarrito(id: number) : void  {
-      setCarrito(prev => prev.filter(producto => producto !== producto))
+      setCarrito(prev => prev.filter(producto => producto.id !== id ))
     } /////////////////////////////////////////////////////////////////////////////////////
 
-    // cargamos todos los datos del carrito al estado
+    // cargamos los datos de carrito cuando llamos al componente 
     
-    useEffect(() => {
-      const  exite = localStorage.getItem("carrito")
-      if(exite){
-        setCarrito(JSON.parse(exite))
-      }else{
-        localStorage.setItem("carrito",JSON.stringify([]))
-      }
-    }, [])
+  useEffect(() => {
+    const carritoGuardado = localStorage.getItem("carrito");
+    if (carritoGuardado) {
+      setCarrito(JSON.parse(carritoGuardado));
+    } else {
+      localStorage.setItem("carrito", JSON.stringify([]));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }, [carrito]);
     
-    useEffect(() => {
-      const  exite = localStorage.getItem("carrito")
-      if(exite || carrito.length > 0 ) localStorage.setItem("carrito",JSON.stringify(carrito))
-    }, [carrito])
-  
     
+
+  function clickComprar (){
+    // redirecionar a otra paginas y implemetar el metodo de cobro con stripe 
+  }  
   return (
     <div className="w-full max-w-3xl mx-auto p-6">
       <div className="flex items-center justify-between mb-6">
@@ -47,8 +50,8 @@ const page = () => {
                    <div className="flex items-center  gap-2 "  >
                   <img className="rounded-md" />
                   <div>
-                    <h3 className="text-lg font-medium">{productosCarrito.nombre} </h3>
-                    <p className="text-muted-foreground text-sm">${productosCarrito.precio} </p>
+                    <h3 className="text-lg font-medium">{productosCarrito.name} </h3>
+                    <p className="text-muted-foreground text-sm">${productosCarrito.price} </p>
                   </div>
                   <Button click={() => clickEliminarProductoCarrito(productosCarrito.id)} txt="eliminar"></Button>
                 </div>
@@ -59,7 +62,7 @@ const page = () => {
          ))
        }
        <div>
-         <button>comprar</button>
+         <button onClick={clickComprar} style={{width:"100%" ,background:"black",color:"white",height:"40px",borderRadius:"5px"}}>comprar</button>
        </div>
     </div>
   );

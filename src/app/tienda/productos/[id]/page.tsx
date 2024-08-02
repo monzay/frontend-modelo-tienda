@@ -39,20 +39,10 @@ interface PageProps {
           setCarrito(prevCarrito => [...prevCarrito,mostrarProductos[0]])
       }
 
-      // contruye el espacio carrito en el localStorage 
-      useEffect(() => {
-        const  existe =  localStorage.getItem("carrito")
-        if(!existe){
-          localStorage.setItem("carrito",JSON.stringify([]))
-        }
-        }, [])
 
-      // index carrito
-      useEffect(() => {
-        localStorage.setItem("carrito",JSON.stringify(carrito))
-      }, [carrito])
- 
 
+      
+      
       
       
       if (estaCargando) {
@@ -62,7 +52,6 @@ interface PageProps {
       if (mostrarProductos.length === 0) {
         return <div>No se encontró el producto</div>
       }
-
 
     
     return (
