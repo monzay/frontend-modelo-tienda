@@ -9,6 +9,8 @@ import AddressForm from '../../components/UserComponents/addressForm';
 
 export default function Page() {
   const { profile, loading, error, setProfile, setError } = useUserProfile(); // Usar el hook personalizado
+
+
   const [showForm, setShowForm] = useState(false); // Estado para controlar la visibilidad del formulario
   const [newAddress, setNewAddress] = useState({ street: '', city: '', state: '', zipCode: '' }); // Estado para la nueva dirección
   const router = useRouter();

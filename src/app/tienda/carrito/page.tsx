@@ -8,7 +8,6 @@ import { exit } from "process";
 const page = () => {
 
   const{carrito,setCarrito} = useContext(ContextoProductos)
-    
     /////////////////////////////////////////////////////////////////////////////////////
     function clickEliminarProductoCarrito(id: number) : void  {
       setCarrito(prev => prev.filter(producto => producto.id !== id ))
@@ -32,7 +31,6 @@ const page = () => {
     
 
   function clickComprar (){
-    // redirecionar a otra paginas y implemetar el metodo de cobro con stripe 
   }  
   return (
     <div className="w-full max-w-3xl mx-auto p-6">

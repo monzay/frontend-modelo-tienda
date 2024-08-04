@@ -16,60 +16,71 @@ interface JwtPayload {
 }
 
 function decodeToken<T>(token: string): T {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  const jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
   return JSON.parse(jsonPayload) as T;
 }
-const token = localStorage.getItem('access_token');
-console.log(token)
-console.log("fsdfsd")
+const token = localStorage.getItem("access_token");
+console.log(token);
+console.log("fsdfsd");
 
 export default function Page() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false); // Estado para controlar la visibilidad del formulario
-  const [newAddress, setNewAddress] = useState({ street: '', city: '', zip: '' }); // Estado para la nueva dirección
+  const [newAddress, setNewAddress] = useState({
+    street: "",
+    city: "",
+    zip: "",
+  }); // Estado para la nueva dirección
   const router = useRouter();
 
-
-  const token = localStorage.getItem('access_token');
-console.log(token)
-console.log("fsdfsd")
+  const token = localStorage.getItem("access_token");
+  console.log(token);
+  console.log("fsdfsd");
   useEffect(() => {
     const fetchUserProfile = async () => {
-      const token = localStorage.getItem('access_token');
+      const token = localStorage.getItem("access_token");
       if (!token) {
-        router.push('/login');
+        router.push("/login");
         return;
       }
 
       try {
-        const decodedToken = decodeToken<JwtPayload>(token); 
+        const decodedToken = decodeToken<JwtPayload>(token);
         const userId = decodedToken.sub;
 
-        const response = await fetch(`http://localhost:4000/api/user/${userId}`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
+        const response = await fetch(
+          `http://localhost:4000/api/user/${userId}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         if (!response.ok) {
-          throw new Error('Failed to fetch user profile');
+          throw new Error("Failed to fetch user profile");
         }
 
         const data = await response.json();
-        console.log('Datos completos del perfil del usuario:', data); // Imprime los datos completos en la consola
+        console.log("Datos completos del perfil del usuario:", data); // Imprime los datos completos en la consola
         setProfile(data);
       } catch (err: any) {
         setError(err.message);
-        localStorage.removeItem('access_token');
-        router.push('/login');
+        localStorage.removeItem("access_token");
+        router.push("/login");
       } finally {
         setLoading(false);
       }
@@ -87,25 +98,28 @@ console.log("fsdfsd")
     if (!profile) return;
 
     try {
-      const token = localStorage.getItem('access_token');
+      const token = localStorage.getItem("access_token");
 
-      const response = await fetch('http://localhost:4000/address', {
-        method: 'POST',
+      const response = await fetch("http://localhost:4000/address", {
+        method: "POST",
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(newAddress),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add new address');
+        throw new Error("Failed to add new address");
       }
 
-      const updatedProfile = { ...profile, addresses: [...profile.addresses, newAddress] };
+      const updatedProfile = {
+        ...profile,
+        addresses: [...profile.addresses, newAddress],
+      };
       setProfile(updatedProfile);
       setShowForm(false);
-      setNewAddress({ street: '', city: '', zip: '' });
+      setNewAddress({ street: "", city: "", zip: "" });
     } catch (err: any) {
       setError(err.message);
     }
@@ -124,20 +138,40 @@ console.log("fsdfsd")
   }
 
   return (
-    <div style={{ display: "flex", width: "100%", background: "black", color: "white", padding: "20px" }}>
+    <div
+      style={{
+        display: "flex",
+        width: "100%",
+        background: "black",
+        color: "white",
+        padding: "20px",
+      }}
+    >
       {profile ? (
         <div>
           <h1>Perfil del Usuario</h1>
-          <p><strong>Nombre:</strong> {profile.name}</p>
-          <p><strong>Email:</strong> {profile.email}</p>
-          <p><strong>Teléfono:</strong> {profile.phoneNumber}</p>
+          <p>
+            <strong>Nombre:</strong> {profile.name}
+          </p>
+          <p>
+            <strong>Email:</strong> {profile.email}
+          </p>
+          <p>
+            <strong>Teléfono:</strong> {profile.phoneNumber}
+          </p>
           <div>
             <ul>
               {profile.addresses.map((address, index) => (
                 <li key={index}>
-                  <p><strong>Calle:</strong> {address.street}</p>
-                  <p><strong>Ciudad:</strong> {address.city}</p>
-                  <p><strong>Código Postal:</strong> {address.zip}</p>
+                  <p>
+                    <strong>Calle:</strong> {address.street}
+                  </p>
+                  <p>
+                    <strong>Ciudad:</strong> {address.city}
+                  </p>
+                  <p>
+                    <strong>Código Postal:</strong> {address.zip}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -148,15 +182,33 @@ console.log("fsdfsd")
               <h2>Nueva Dirección</h2>
               <label>
                 Calle:
-                <input type="text" name="street" value={newAddress.street} onChange={handleChange} required />
+                <input
+                  type="text"
+                  name="street"
+                  value={newAddress.street}
+                  onChange={handleChange}
+                  required
+                />
               </label>
               <label>
                 Ciudad:
-                <input type="text" name="city" value={newAddress.city} onChange={handleChange} required />
+                <input
+                  type="text"
+                  name="city"
+                  value={newAddress.city}
+                  onChange={handleChange}
+                  required
+                />
               </label>
               <label>
                 Código Postal:
-                <input type="text" name="zip" value={newAddress.zip} onChange={handleChange} required />
+                <input
+                  type="text"
+                  name="zip"
+                  value={newAddress.zip}
+                  onChange={handleChange}
+                  required
+                />
               </label>
               <button type="submit">Guardar Dirección</button>
             </form>

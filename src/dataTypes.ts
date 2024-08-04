@@ -23,6 +23,7 @@ export interface Product {
   }
   
   export interface JwtPayload {
+    id:number,
     sub: string;
     email: string;
     role: string;

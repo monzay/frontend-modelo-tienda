@@ -1,41 +1,37 @@
 "use client"
-import React, { createContext, useState, ReactNode, SetStateAction,useEffect } from 'react';
-import {TypeCarrito } from '../typo/interfaces';
-import { cookies } from 'next/headers';
-
+import React, { createContext, useState, ReactNode, SetStateAction, useEffect } from 'react';
+import { TypeCarrito } from '../typo/interfaces';
 
 interface ContextoProductoType {
   productos: TypeCarrito[];
   setProductos: React.Dispatch<SetStateAction<TypeCarrito[]>>
-  setCarrito:  React.Dispatch<SetStateAction<TypeCarrito[]>>
-  carrito:TypeCarrito[]
+  setCarrito: React.Dispatch<SetStateAction<TypeCarrito[]>>
+  carrito: TypeCarrito[]
 }
 
 interface ProviderProductosProps {
   children: ReactNode;
 }
 
-
 export const ContextoProductos = createContext<ContextoProductoType>({
   productos: [],
   setProductos: () => {},
   setCarrito: () => {},
-  carrito:[]
+  carrito: []
 });
 
-
 export const ProviderProductos: React.FC<ProviderProductosProps> = ({ children }) => {
+  // Corregimos el tipo de estado inicial para productos y carrito
+  const [productos, setProductos] = useState<TypeCarrito[]>([]);
+  const [carrito, setCarrito] = useState<TypeCarrito[]>([]);
 
-  const [productos, setProductos] = useState([]);
-  const [carrito,setCarrito] = useState([])
-
-   /////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////
 
   useEffect(() => {
     const obtenerProductos = async () => {
       const token = localStorage.getItem('access_token');
       try {
-        const respuesta = await fetch('http://localhost:4000/api/products/all', {
+        const respuesta = await fetch('http://localhost:4000/api/products', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -46,19 +42,19 @@ export const ProviderProductos: React.FC<ProviderProductosProps> = ({ children }
           throw new Error('Error al obtener los productos');
         }
         const datos = await respuesta.json();
-        setProductos(datos)
+        setProductos(datos);
       } catch (error) {
         console.error('Error:', error);
       }
     };
     obtenerProductos();
   }, []);
-   /////////////////////////////////////////////////////////////////////////////////////
-  
+  /////////////////////////////////////////////////////////////////////////////////////
 
   return (
-    <ContextoProductos.Provider value={{ productos, setProductos,carrito,setCarrito }}>
+    <ContextoProductos.Provider value={{ productos, setProductos, carrito, setCarrito }}>
       {children}
     </ContextoProductos.Provider>
   );
 };
+

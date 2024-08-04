@@ -47,7 +47,7 @@ export default function Page() {
       const data = await response.json();
       
       if (data.access_token) {
-        localStorage.setItem('access_token', data.access_token); // Guarda el access_token en localStorage solo si no es indefinido
+        localStorage.setItem('access_token', data.access_token); 
         router.push('/tienda');
       }
       

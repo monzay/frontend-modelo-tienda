@@ -31,7 +31,7 @@ const useUserProfile = () => {
           throw new Error('Failed to fetch user profile');
         }
         const data = await response.json();
-        console.log('Datos completos del perfil del usuario:', data); // Imprime los datos completos en la consola
+        console.log('Datos completos del perfil del usuario:', data);
         setProfile(data);
       } catch (err: any) {
         setError(err.message);

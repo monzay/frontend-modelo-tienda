@@ -1,55 +1,44 @@
-"use client"
-import React, { useState } from 'react'
-import Link from 'next/link'
-import { ProviderProductos } from '../Providers/ProviderProductos'
-import "./tienda.css"
-
-const layout = ({children} : {children:React.ReactNode}) => {
-
-
-  const [permisos,setPermisos] = useState(true)
-  
+"use client";
+import React, { useState } from "react";
+import Link from "next/link";
+import { ProviderProductos } from "../Providers/ProviderProductos";
+import "./tienda.css";
+import { ProviderAcceso } from "../Providers/ProviderPermisos";
+const layout = ({ children }: { children: React.ReactNode }) => {
+  const [acceso, setAcceso] = useState(false);
 
   return (
-    <div style={{width:"100%"}}>
+    <div style={{ width: "100%" }}>
+      <ProviderAcceso>
         <ProviderProductos>
-    <div id="header-vertical" className="bg-muted border-r">
+          <div id="header-vertical" className="bg-muted border-r">
             <nav id="nav-header-vertical" className="flex flex-col">
-            <Link href="/tienda">
-              <div id="item-header-vertical">
-              Inicio
-              </div>
+              <Link href="/tienda" replace>
+                <div id="item-header-vertical">Inicio</div>
               </Link>
-              <Link href="./tienda/sobreNosotros">
-             <div id="item-header-vertical">
-             nosotros
-             </div >
+              <Link href="/tienda/sobreNosotros" replace>
+                <div id="item-header-vertical">nosotros</div>
               </Link>
-              <Link href="/profile">
-              <div id="item-header-vertical">
-              perfil
-              </div>
+              <Link href="/tienda/perfil" replace>
+                <div id="item-header-vertical">perfil</div>
               </Link>
-              <Link href="./tienda/todoLosProductos">
-              <div id="item-header-vertical">
-              todos los productos
-              </div>
+              <Link href="/tienda/todosLosProductos" replace>
+                <div id="item-header-vertical">todos los productos</div>
               </Link>
-              { permisos &&
-                 <>
-             <Link href="./tienda/administrador">
-              <div id="item-header-vertical">
-              administracion
-              </div>
-              </Link>
+              {acceso && (
+                <>
+                  <Link href="/tienda/administrador" replace>
+                    <div id="item-header-vertical">administracion</div>
+                  </Link>
                 </>
-              }
+              )}
             </nav>
           </div>
           {children}
-          </ProviderProductos>
+        </ProviderProductos>
+      </ProviderAcceso>
     </div>
-  )
-}
+  );
+};
 
-export default layout
+export default layout;
