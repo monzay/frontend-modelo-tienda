@@ -1,20 +1,21 @@
+// Importación de módulos y componentes necesarios
 "use client"
 import React, { useContext ,useEffect, useState} from "react";
 import Button from "@/components/ui/btn/button";
 import { ContextoProductos } from "../../Providers/ProviderProductos";
-import { Castoro } from "next/font/google";
-import { exit } from "process";
 
+// Definición del componente principal
 const page = () => {
 
+  // Obtención del carrito y la función para actualizarlo del contexto
   const{carrito,setCarrito} = useContext(ContextoProductos)
     /////////////////////////////////////////////////////////////////////////////////////
+    // Función para eliminar un producto del carrito
     function clickEliminarProductoCarrito(id: number) : void  {
       setCarrito(prev => prev.filter(producto => producto.id !== id ))
     } /////////////////////////////////////////////////////////////////////////////////////
 
-    // cargamos los datos de carrito cuando llamos al componente 
-    
+    // Efecto para cargar los datos del carrito al montar el componente
   useEffect(() => {
     const carritoGuardado = localStorage.getItem("carrito");
     if (carritoGuardado) {
@@ -24,20 +25,24 @@ const page = () => {
     }
   }, []);
 
+  // Efecto para guardar los datos del carrito en localStorage cuando cambia
   useEffect(() => {
     localStorage.setItem("carrito", JSON.stringify(carrito));
   }, [carrito]);
     
     
-
+  // Función para manejar la acción de comprar (actualmente vacía)
   function clickComprar (){
   }  
+
+  // Renderizado del componente
   return (
     <div className="w-full max-w-3xl mx-auto p-6">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Carrito</h1>
       </div>
        {
+         // Mapeo de los productos en el carrito
          carrito.map(productosCarrito => ( 
             <div className="grid gap-4">
             <div
@@ -66,4 +71,5 @@ const page = () => {
   );
 };
 
+// Exportación del componente
 export default page;

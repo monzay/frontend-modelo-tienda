@@ -5,8 +5,12 @@ import { ProviderProductos } from "../Providers/ProviderProductos";
 import "./tienda.css";
 import { ProviderAcceso } from "../Providers/ProviderPermisos";
 const layout = ({ children }: { children: React.ReactNode }) => {
-  const [acceso, setAcceso] = useState(false);
+  
 
+  // tengo que encontrar una forma de tener el acceso del contexto 
+  // esto es provisorio  (state)
+  const [acceso, setAcceso] = useState(false);
+   
   return (
     <div style={{ width: "100%" }}>
       <ProviderAcceso>
