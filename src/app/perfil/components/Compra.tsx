@@ -20,7 +20,7 @@ const Compra: React.FC<CompraProps> = ({ producto, index }) => {
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <img src={null} alt={producto.nombre} className="rounded-md w-16 h-16 object-cover" />
+          <img src="" alt={producto.nombre} className="rounded-md w-16 h-16 object-cover" />
           <div>
             <h3 className="text-lg font-medium">{producto.nombre}</h3>
             <p className="text-muted-foreground text-sm">${producto.precio}</p>

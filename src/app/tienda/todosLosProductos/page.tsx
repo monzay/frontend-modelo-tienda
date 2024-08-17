@@ -5,6 +5,8 @@ import React, { useContext, useState } from 'react'
 
 const page = () => {
     const router = useRouter()
+
+    // productos obteneido del contexto  
     const {productos} = useContext(ContextoProductos)    
     function redireccionarAlProducto(id: number){
         router.push(`/tienda/productos/${id}`)

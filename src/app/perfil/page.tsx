@@ -1,27 +1,14 @@
-/**
- * @file Página de perfil de usuario
- * @description Este componente representa la página de perfil del usuario, mostrando su información personal,
- * direcciones y compras realizadas. También permite añadir nuevas direcciones y realizar acciones como cerrar sesión
- * o eliminar la cuenta.
- */
-
 "use client";
 import React, { useEffect, useState } from "react";
 import { decodeToken, JwtPayload } from "@/dataTypes";
 import Button from "@/components/ui/btn/button";
 import Input from "./components/Input";
 import DireccionCard from "./components/DireccionCard";
-import { useRouter } from "next/navigation";
 import Compra from "./components/Compra";
 import { cerrarSesion } from "./func/CerrarSesion";
 import { fetchUser } from "@/hooks/fetchUser";
 import deleteUser from "./func/EliminarUser";
-import { deleteDireccionUser } from "./func/EliminarDireccion";
 
-/**
- * @interface Direccion
- * @description Interfaz que define la estructura de una dirección de usuario
- */
 export interface Direccion {
   id: string;
   street: string;
@@ -31,22 +18,13 @@ export interface Direccion {
   zipCode: string;
 }
 
-/**
- * @interface CredencialesUser
- * @description Interfaz que define las credenciales básicas del usuario
- */
 interface CredencialesUser {
   name: string;
   email: string;
   addresses: Direccion[];
 }
 
-/**
- * @function Page
- * @description Componente principal de la página de perfil
- */
 const Page = () => {
-  // Estados para manejar la carga, direcciones y datos del usuario
   const [loading, setLoading] = useState(true);
   const [direcciones, setDirecciones] = useState<Direccion[]>([]);
   const [direccionUser, setDireccionUser] = useState({
@@ -57,26 +35,21 @@ const Page = () => {
     zipCode: "",
     userId: "",
   });
-  const [mostrarFormAñadirDireccion, setMostrarFormAñadirDireccion] = useState(false);
-
-  // Estado para almacenar todos los datos del usuario
+  const [mostrarFormAñadirDireccion, setMostrarFormAñadirDireccion] =
+    useState(false);
   const [dataUser, setDataUser] = useState({
     id: "",
-    email: '',
-    name: '',
-    role: '',
-    phoneNumber: '',
+    email: "",
+    name: "",
+    role: "",
+    phoneNumber: "",
     addresses: [],
     purchases: [],
-    createdAt: '',
-    updatedAt: ''
+    createdAt: "",
+    updatedAt: "",
   });
   const [productosComprados, setProductosComprados] = useState([]);
 
-  /**
-   * @function GetdataUser
-   * @description Obtiene los datos del usuario al cargar la página
-   */
   useEffect(() => {
     const GetdataUser = async () => {
       const token = localStorage.getItem("access_token");
@@ -87,16 +60,22 @@ const Page = () => {
       try {
         const decodedToken = decodeToken<JwtPayload>(token);
         const userId = decodedToken.sub;
-        const data = await fetchUser(`http://localhost:4000/api/user/${userId}`, "GET");
-        setDataUser(prev => ({...prev,
-          id: data.id,
-          name: data.name,
-          email: data.email,
-          role: data.role,
-          phoneNumber: data.phoneNumber,
-          addresses: data.addresses
-        }));
-        console.log(data);
+        const response = await fetchUser(
+          `http://localhost:4000/api/user/${userId}`,
+          "GET"
+        );
+
+        if (response.ok) {
+          setDataUser((prev) => ({
+            ...prev,
+            id: response.id,
+            name: response.name,
+            email: response.email,
+            role: response.role,
+            phoneNumber: response.phoneNumber,
+            addresses: response.addresses,
+          }));
+        }
       } catch (err) {
         console.error(err);
       } finally {
@@ -113,15 +92,20 @@ const Page = () => {
   useEffect(() => {
     const GETproductosUser = async () => {
       try {
-        const data = await fetchUser(`http://localhost:4000/api/purchase-product/my-purchases`, "GET");
-        setProductosComprados(data);
+        const response = await fetchUser(
+          `http://localhost:4000/api/purchase-product/my-purchases`,
+          "GET"
+        );
+        if (response.ok) {
+          setProductosComprados(response);
+        }
       } catch (err) {
         console.log(err);
       }
     };
     GETproductosUser();
   }, []);
-  
+
   /**
    * @function handleInputChange
    * @description Maneja los cambios en los inputs del formulario de dirección
@@ -139,10 +123,15 @@ const Page = () => {
     e.preventDefault();
     console.log(localStorage.getItem("access_token"));
     const body = {
-      ...direccionUser, userId: 2
+      ...direccionUser,
+      userId: 2,
     };
     try {
-      const data = await fetchUser(`http://localhost:4000/api/address`, "POST", body);
+      const data = await fetchUser(
+        `http://localhost:4000/api/address`,
+        "POST",
+        body
+      );
       console.log(data);
       setMostrarFormAñadirDireccion(false);
     } catch (err) {
@@ -167,10 +156,16 @@ const Page = () => {
       state: "tetas" || buscarDireccion.state,
       zipCode: "tetas" || buscarDireccion.zipCode,
     };
-    
+
     try {
-      const data = await fetchUser(`http://localhost:4000/api/address/${id}`, "PATCH", direccionActualizada);
-      setDirecciones(prevDirecciones => prevDirecciones.map((dir) => (dir.id === id ? data : dir)));
+      const data = await fetchUser(
+        `http://localhost:4000/api/address/${id}`,
+        "PATCH",
+        direccionActualizada
+      );
+      setDirecciones((prevDirecciones) =>
+        prevDirecciones.map((dir) => (dir.id === id ? data : dir))
+      );
     } catch (err) {
       console.error(err);
     }
@@ -202,17 +197,13 @@ const Page = () => {
       {/* Sección de direcciones */}
       <div>
         <h1 className="text-2xl font-bold">Direcciones</h1>
-        {dataUser.addresses.length > 0 ?
+        {dataUser.addresses.length > 0 ? (
           dataUser.addresses.map((direccion, index) => (
-            <DireccionCard
-              key={index}
-              direccion={direccion}
-              onDelete={}
-              onUpdate={updateDireccionUser}
-            />
-          )) : (
-            <p>no hay direcciones </p>
-          )}
+            <DireccionCard key={index} direccion={direccion} />
+          ))
+        ) : (
+          <p>no hay direcciones </p>
+        )}
         <Button
           txt="añadir"
           click={() => setMostrarFormAñadirDireccion(true)}

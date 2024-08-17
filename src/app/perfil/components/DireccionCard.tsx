@@ -1,13 +1,9 @@
 import React from 'react';
 import Button from "@/components/ui/btn/button";
 import { Direccion } from '../page';
-interface DireccionCardProps {
-  direccion:Direccion ;
-  onDelete: (id: string) => void;
-  onUpdate: (id: string) => void;
-}
+interface DireccionCardProps { direccion:Direccion }
 
-const DireccionCard: React.FC<DireccionCardProps> = ({ direccion, onDelete, onUpdate }) => {
+const DireccionCard: React.FC<DireccionCardProps> = ({ direccion }) => {
   return (
     <div className="grid gap-4">
       <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4" data-v0-t="card">
@@ -20,8 +16,8 @@ const DireccionCard: React.FC<DireccionCardProps> = ({ direccion, onDelete, onUp
               <p className="text-muted-foreground text-sm">Colonia: {direccion.neighborhood}</p>
               <p className="text-muted-foreground text-sm">Código postal: {direccion.zipCode}</p>
               <p className="text-muted-foreground text-sm">Estado: {direccion.state}</p>
-              <Button txt="Eliminar" click={() => onDelete(direccion.id)} />
-              <Button txt="Actualizar" click={() => onUpdate(direccion.id)} />
+              <Button txt="Eliminar"  click={()=> alert("eliminar")} />
+              <Button txt="Actualizar"  click={()=> alert("eliminar")}/>
             </div>
           </div>
           <div className="text-right"></div>
