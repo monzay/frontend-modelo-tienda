@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/form/Input";
 import { cn } from "@/lib/utils";
 import { createReactComponent, IconBrandGoogle } from "@tabler/icons-react";
 import Link from "next/link";
+import { obtenerToken, redirecionar } from "@/app/funciones";
 
 interface SignUpTypes {
   email: string;
@@ -22,6 +23,8 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+
+  
 
 
   //////////////////////////////////////////////////////////////////////////////////////
@@ -66,6 +69,14 @@ export default function Page() {
       [e.target.id]: e.target.value,
     });
   };
+  
+  useEffect(() => {
+    // si retorna el token lo redireciona y si tira undefine no se ejecuta 
+    if(obtenerToken("access_token")){
+      redirecionar("/tienda",router)
+    }
+  }, [])
+  
 
 
    //////////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +133,7 @@ export default function Page() {
           </div>
         </form>
         <p style={{ color: "white" }}>
-          ¿No tienes una cuenta? <Link style={{ color: "blue" }} href="./Login">Regístrate</Link>
+          ¿No tienes una cuenta? <Link href="/from/login" replace={true} >Regístrate</Link>
         </p>
       </div>
     </div>

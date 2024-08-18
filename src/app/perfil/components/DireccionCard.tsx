@@ -4,6 +4,38 @@ import { Direccion } from '../page';
 interface DireccionCardProps { direccion:Direccion }
 
 const DireccionCard: React.FC<DireccionCardProps> = ({ direccion }) => {
+
+
+  const updateDireccionUser = async (id: string) => {
+    const buscarDireccion = direcciones.find(
+      (direccion) => direccion.id === id
+    );
+
+    if (!buscarDireccion) return;
+
+    const direccionActualizada = {
+      street: "tetas" || buscarDireccion.street,
+      city: "tetas" || buscarDireccion.city,
+      state: "tetas" || buscarDireccion.state,
+      zipCode: "tetas" || buscarDireccion.zipCode,
+    };
+
+    try {
+      const data = await fetchUser(
+        `http://localhost:4000/api/address/${id}`,
+        "PATCH",
+        direccionActualizada
+      );
+      setDirecciones((prevDirecciones) =>
+        prevDirecciones.map((dir) => (dir.id === id ? data : dir))
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
+
   return (
     <div className="grid gap-4">
       <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4" data-v0-t="card">

@@ -35,8 +35,7 @@ const Page = () => {
     zipCode: "",
     userId: "",
   });
-  const [mostrarFormAñadirDireccion, setMostrarFormAñadirDireccion] =
-    useState(false);
+  const [mostrarFormAñadirDireccion, setMostrarFormAñadirDireccion] = useState(false);
   const [dataUser, setDataUser] = useState({
     id: "",
     email: "",
@@ -60,15 +59,11 @@ const Page = () => {
       try {
         const decodedToken = decodeToken<JwtPayload>(token);
         const userId = decodedToken.sub;
-        const response = await fetchUser(
-          `http://localhost:4000/api/user/${userId}`,
-          "GET"
-        );
-
-        if (response.ok) {
+        const response = await fetchUser( `http://localhost:4000/api/user/${userId}`,"GET");
+        if (response) {
+          console.log(response)
           setDataUser((prev) => ({
             ...prev,
-            id: response.id,
             name: response.name,
             email: response.email,
             role: response.role,
@@ -85,17 +80,10 @@ const Page = () => {
     GetdataUser();
   }, [mostrarFormAñadirDireccion]);
 
-  /**
-   * @function GETproductosUser
-   * @description Obtiene los productos comprados por el usuario
-   */
   useEffect(() => {
     const GETproductosUser = async () => {
       try {
-        const response = await fetchUser(
-          `http://localhost:4000/api/purchase-product/my-purchases`,
-          "GET"
-        );
+        const response = await fetchUser(`http://localhost:4000/api/purchase-product/my-purchases`,"GET");
         if (response.ok) {
           setProductosComprados(response);
         }
@@ -106,19 +94,12 @@ const Page = () => {
     GETproductosUser();
   }, []);
 
-  /**
-   * @function handleInputChange
-   * @description Maneja los cambios en los inputs del formulario de dirección
-   */
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setDireccionUser((prev) => ({ ...prev, [name]: value }));
   };
 
-  /**
-   * @function handleSubmit
-   * @description Maneja el envío del formulario para añadir una nueva dirección
-   */
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(localStorage.getItem("access_token"));
@@ -139,37 +120,10 @@ const Page = () => {
     }
   };
 
-  /**
-   * @function updateDireccionUser
-   * @description Actualiza la dirección del usuario
-   */
-  const updateDireccionUser = async (id: string) => {
-    const buscarDireccion = direcciones.find(
-      (direccion) => direccion.id === id
-    );
 
-    if (!buscarDireccion) return;
-
-    const direccionActualizada = {
-      street: "tetas" || buscarDireccion.street,
-      city: "tetas" || buscarDireccion.city,
-      state: "tetas" || buscarDireccion.state,
-      zipCode: "tetas" || buscarDireccion.zipCode,
-    };
-
-    try {
-      const data = await fetchUser(
-        `http://localhost:4000/api/address/${id}`,
-        "PATCH",
-        direccionActualizada
-      );
-      setDirecciones((prevDirecciones) =>
-        prevDirecciones.map((dir) => (dir.id === id ? data : dir))
-      );
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  useEffect(() => {
+    console.log(dataUser)
+  }, [dataUser])
 
   // Renderizado condicional basado en el estado de carga
   if (loading) {
@@ -182,6 +136,10 @@ const Page = () => {
   if (!dataUser) {
     return <div>No se pudo cargar la información del usuario.</div>;
   }
+
+
+
+  
 
   // Renderizado principal de la página de perfil
   return (

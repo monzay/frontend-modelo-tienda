@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/form/Input";
 import { cn } from "@/lib/utils";
 import { IconBrandGoogle } from "@tabler/icons-react";
 import Link from "next/link";
+import { obtenerToken, redirecionar } from "@/app/funciones";
 
 interface SignUpTypes {
   firstname: string;
@@ -16,6 +17,8 @@ interface SignUpTypes {
 }
 
 export default function Page() {
+  ///////////////////////////////////////////////////////////////////////
+  // STATES
   const [formData, setFormData] = useState<SignUpTypes>({
     firstname: '',
     lastname: '',
@@ -23,12 +26,16 @@ export default function Page() {
     password: '',
     celular: ""
   });
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
+  
+  ///////////////////////////////////////////////////////////////////////
+  // USEROUTER
   const router = useRouter();
+  ///////////////////////////////////////////////////////////////////////
 
-
+///////////////////////////////////////////////////////////////////////
+  // FUNCIONES 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -95,7 +102,18 @@ export default function Page() {
       [e.target.id]: e.target.value,
     });
   };
+///////////////////////////////////////////////////////////////////////
+   // EFFECT 
 
+  useEffect(() => {
+    // si retorna el token lo redireciona y si tira undefine no se ejecuta 
+    if(obtenerToken("access_token")){
+      redirecionar("/tienda",router)
+    }
+  }, [])
+  
+///////////////////////////////////////////////////////////////////////
+ // COMPONENTE 
   return (
     <div style={{ display: "flex", width: "100%", background: "black" }}>
       <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
@@ -152,7 +170,7 @@ export default function Page() {
           </div>
         </form>
         <p style={{ color: "white" }}>
-          ¿Ya tienes una cuenta? <Link style={{ color: "blue" }} href="/login">Iniciar sesión</Link>
+          ¿Ya tienes una cuenta? <Link style={{ color: "blue" }} href="/form/login" replace={true}>Iniciar sesión</Link>
         </p>
       </div>
     </div>
