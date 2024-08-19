@@ -59,10 +59,8 @@ useEffect(() => {
     }
   }, []);
   
-  // Renderizado del componente
   return (
     <div  style={{display:"flex",width:"100%",flexDirection:'column'}} className="flex flex-col min-h-screen">
-      {/* Encabezado */}
       <header className="bg-primary text-primary-foreground py-4 px-4 sm:px-6 md:px-8 flex items-center justify-between">
         <a className="text-2xl font-bold" href="#">
          metamorfosis 

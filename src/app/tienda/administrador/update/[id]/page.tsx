@@ -1,84 +1,40 @@
 "use client";
 import { ContextoProductos } from "@/app/Providers/ProviderProductos";
-import React, { useState, ChangeEvent, FormEvent, useContext, useEffect } from "react";
+import React, { useState, ChangeEvent, useContext } from "react";
+import { updateProducto } from "./func/update";
 
-/**
- * Componente de página para actualizar un producto.
- * @param {Object} props - Propiedades del componente.
- * @param {Object} props.params - Parámetros de la ruta.
- * @param {number} props.params.id - ID del producto a actualizar.
- */
+
+
+
 const Page: React.FC<{ params: { id: number } }> = ({ params }) => {
-  
-  // Obtiene los productos y la función para actualizarlos del contexto
-  const { productos, setProductos } = useContext(ContextoProductos);
-  
-  // Estado para almacenar los datos del producto a actualizar
+
+
+  const { productos } = useContext(ContextoProductos);
   const [productoData, setProductoData] = useState({
     name: "",
     description: "",
     price: "",
     stock: ""
-  });
-
-  // Estado para manejar mensajes de error
+  })
   const [error, setError] = useState<string>("");
 
-  /**
-   * Maneja los cambios en los campos del formulario.
-   * @param {ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} event - Evento de cambio.
-   */
+
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     setProductoData((prev) => ({ ...prev, [name]: value }));
   };
-
-  /**
-   * Función asíncrona para actualizar el producto.
-   * @param {FormEvent<HTMLFormElement>} event - Evento de envío del formulario.
-   */
-  async function clickActualizarProducto(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const token = localStorage.getItem('access_token');
   
-    // Busca el producto a actualizar
-    const productoEncontrado = productos.find(producto => producto.id == params.id);
-    if (!productoEncontrado) {
-      setError("Producto no encontrado");
-      return;
-    }
-
-    // Prepara los nuevos datos del producto
-    const nuevosDatosProductos = {
-      name: productoData.name || productoEncontrado.name,
-      description: productoData.description || productoEncontrado.description,
-      price: productoData.price ? parseFloat(productoData.price) : productoEncontrado.price,
-      stock: productoData.stock ? parseInt(productoData.stock) : productoEncontrado.stock
-    };
-
-    try {
-      // Realiza la petición para actualizar el producto
-      const respuesta = await fetch(`http://localhost:4000/api/products/update/${params.id}`, {
-        method: "PATCH",
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(nuevosDatosProductos)
-      });
-      const data = await respuesta.json();
-      if (!respuesta.ok) {
-        throw new Error('No se pudo actualizar el producto');
-      }
-      setError("Producto actualizado con éxito");
-    } catch (error) {
-      console.log(error)
-    }  
-  }
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg">
-      <form onSubmit={clickActualizarProducto}>
+      <form onSubmit={(e)=> updateProducto(
+        `http://localhost:4000/api/products/update/${params.id}`,
+        productos,
+        productoData,
+        setError,
+        params,
+        e)}>
+
         <h2 className="text-3xl font-bold mb-4 text-gray-800">
           Actualizar Producto
         </h2>
@@ -86,7 +42,6 @@ const Page: React.FC<{ params: { id: number } }> = ({ params }) => {
         Cambia el campo que quieras modificar
         </p>
 
-        {/* Campo para el nombre del producto */}
         <div className="mb-4">
           <input
             type="text"

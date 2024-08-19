@@ -1,6 +1,6 @@
 "use client";
 import React, { use, useContext, useEffect, useState } from "react";
-import Producto from "./producto";
+import Producto from "../../components/cardProducto/producto";
 import { TypeCarrito } from "../typo/interfaces";
 import Header from "@/components/Header";
 import { ContextoProductos } from "../Providers/ProviderProductos";
@@ -29,6 +29,10 @@ const page = () => {
     }
     buscandoProducto();
   }, [palabra, productos]);
+
+
+
+  
 
   /////////////////////////////////////////////////////////////////////////////////////ç
 
