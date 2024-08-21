@@ -1,7 +1,9 @@
-
-export  const fetchUser = async (url: string, metodo: string, body?: any) => {
+export const fetchUser = async (url: string, metodo: string, body?: any) => {
     try {
       const token = localStorage.getItem("access_token");
+      if (!token) {
+        throw new Error("El usuario no está autenticado");
+      }
       const res = await fetch(url, {
         method: metodo,
         headers: {
@@ -15,6 +17,7 @@ export  const fetchUser = async (url: string, metodo: string, body?: any) => {
       }
       return await res.json();
     } catch (error) {
-      console.error("Error en fetch:", error);
+      console.log(error)
+      console.error("Error:", error);
     }
   };

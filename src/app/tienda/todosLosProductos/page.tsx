@@ -15,7 +15,7 @@ const page = () => {
     <div id="seccion-todos-los-productos">
         <h5>Todos los Productos</h5>
      {
-        productos.map(producto => (
+        productos.map((producto:any) => (
             <div  id="seccion-todos-los-productos-producto" key={producto.id} onClick={() => redireccionarAlProducto(producto.id)}>
             </div>
         ))

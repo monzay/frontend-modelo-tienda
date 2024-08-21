@@ -1,0 +1,98 @@
+[33mcommit 6254a049d442dd99ce3a563e6a1debf8082f4a69[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Sun Aug 18 23:11:02 2024 -0300
+
+    arreglado todo el home
+
+[33mcommit e254bd7db775e05b149cc3cf0daad967afb455cd[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Sat Aug 17 21:15:46 2024 -0300
+
+    cambiar el deposicion el perfil
+
+[33mcommit 66a8ed021b7541905c17dfac50724101269ff1d3[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Sat Aug 17 19:43:47 2024 -0300
+
+    movi el perfil al mismo nivel de la tienda
+
+[33mcommit ea4ab752a435e7bc6943eb5a430ab0da39820ec2[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Tue Aug 6 12:21:13 2024 -0300
+
+    codigo comentado
+
+[33mcommit 2679eca541f9d039970887db8c2d4ba57635b8d6[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Mon Aug 5 02:59:41 2024 -0300
+
+    modulando el codigo y reutilizando
+
+[33mcommit d94c89e59cfd70dfd3700b7b30c8df669236631e[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Sun Aug 4 03:28:05 2024 -0300
+
+    casi listo
+
+[33mcommit b9e78a45f4b64d232b28cf99e114400811468423[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Fri Aug 2 04:45:52 2024 -0300
+
+    aun no arregla nada
+
+[33mcommit 42eb6f3578d272ee4d73ee7641d09b91464db488[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Thu Aug 1 23:06:48 2024 -0300
+
+    arregle el add remove update login singup
+
+[33mcommit 3a353e194910a7f3e411c98704948f3d6a64e803[m
+Merge: 5a21288 644a074
+Author: monzay <121904710+monzay@users.noreply.github.com>
+Date:   Wed Jul 31 18:58:04 2024 -0300
+
+    Merge pull request #1 from MRMRMR033/master
+    
+    actualizacion consumo de api
+
+[33mcommit 644a074da0b1a0d57094fdc743c41f823f60c863[m
+Author: MRMRMR033 <crabs.rust@icloud.com>
+Date:   Wed Jul 31 16:56:09 2024 -0500
+
+    actualizacion de api
+
+[33mcommit 31eaca2de61c7c57dd68cea1913e8f1f3099b975[m
+Author: MRMRMR033 <crabs.rust@icloud.com>
+Date:   Wed Jul 31 16:44:47 2024 -0500
+
+    actualizacion consumo de api
+
+[33mcommit 5a21288f23e517de59779fc542c58ce7027c8eb1[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Tue Jul 30 21:50:31 2024 -0300
+
+    0.4
+
+[33mcommit e9afe81672a21eb1d4c0cb7a1a2a0aba44070771[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Mon Jul 29 03:50:04 2024 -0300
+
+    0.3
+
+[33mcommit 5a00ff34da5cb17c4886e652243d4b83ede33e9c[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Sun Jul 28 04:19:44 2024 -0300
+
+    0.2
+
+[33mcommit 6e734031ceea03046fc72058ed2e5e3006e09eae[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Thu Jul 25 02:40:37 2024 -0300
+
+    0.1
+
+[33mcommit a4c53cd8ac11364dbd43b5800db97aa16df2313c[m
+Author: Joel Martinez <jm8587700@gmail.com>
+Date:   Thu Jul 25 00:09:39 2024 -0300
+
+    Initial commit from Create Next App

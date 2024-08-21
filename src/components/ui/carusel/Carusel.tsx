@@ -50,24 +50,23 @@ const DummyContent = () => {
     </>
   );
 };
-
 const data = [
   {
     category: "Producto",
     title: "",
-    src:"",
+    src:"https://i.pinimg.com/564x/7d/c1/f2/7dc1f2a84d02c8938e6c9399f43e8aaf.jpg",
     content: <DummyContent />,
   },
   {
     category: "Producto",
     title: "",
-    src: "",
+    src: "https://i.pinimg.com/564x/7d/c1/f2/7dc1f2a84d02c8938e6c9399f43e8aaf.jpg",
     content: <DummyContent />,
   },
   {
     category: "Producto",
     title: "",
-    src: "",
+    src: "https://i.pinimg.com/564x/7d/c1/f2/7dc1f2a84d02c8938e6c9399f43e8aaf.jpg",
     content: <DummyContent />,
   },
 
@@ -80,7 +79,7 @@ const data = [
   {
     category: "",
     title: "",
-    src:"",
+    src:"ttps://i.pinimg.com/564x/7d/c1/f2/7dc1f2a84d02c8938e6c9399f43e8aaf.jpg",
     content: <DummyContent />,
   },
   {

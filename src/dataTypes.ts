@@ -4,6 +4,15 @@ export interface Product {
     description: string;
     price: number;
   }
+
+
+  export interface SignUpTypes {
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    celular: string;
+  }
   
   export interface Purchase {
     id: number;
@@ -37,3 +46,5 @@ export interface Product {
     }).join(''));
     return JSON.parse(jsonPayload) as T;
   }  
+
+

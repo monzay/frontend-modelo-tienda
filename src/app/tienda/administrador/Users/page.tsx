@@ -47,14 +47,14 @@ const Page = () => {
 
   // Renderizado del componente
   return (
-    <div className="w-full max-w-3xl mx-auto p-6">
+    <div className="w-full max-w-3xl mx-auto p-6 ">
     <div className="flex items-center justify-between mb-6">
       <h1 className="text-2xl font-bold">Usuarios</h1>
     </div>
      {
        // Mapea la lista de usuarios para renderizar cada uno
        usuarios.map((user: Usuario) => ( 
-          <div key={user.id} className="grid gap-4">
+          <div key={user.id} className="grid gap-4 pt-1 pb-1" >
           <div
             className="rounded-lg border bg-card text-card-foreground shadow-sm p-4"
             data-v0-t="card"

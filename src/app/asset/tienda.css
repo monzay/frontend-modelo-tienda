@@ -7,7 +7,7 @@ body {
     width: 160px;
     position: fixed;
     left: 0;
-    color: black;
+    color: rgb(0, 0, 0);
   }
   #nav-header-vertical{
     padding: 60px 0px;
@@ -21,11 +21,12 @@ body {
    margin: 1px 0px;
   }
   #item-header-vertical:hover{
-    background-color: rgb(0, 0, 0);
+    background-color:  #0070f3;
     border-radius: 4px;
     transition: 0.5s;
-    color: white;
+    color:  #ffffff;
   }
+
   #header-horizontal{
   }
   
@@ -69,7 +70,6 @@ body {
     background-color: rgb(0, 0, 0);
     color: white;
   }
-
  
   #producto-tienda {
     border-radius: 0.5rem; /* 8px */

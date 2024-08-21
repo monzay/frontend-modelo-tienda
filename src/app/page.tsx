@@ -4,24 +4,12 @@ import Button from '@/components/ui/btn/button'
 import { Carusel } from '@/components/ui/carusel/Carusel'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState} from 'react'
-
-// Definición del componente principal
+import { redirecionar } from './funciones'
 const page = () => {
-   // Inicialización del router y estado para mostrar botones de formulario
    const router = useRouter()
    const [mostrarBtnForm,setMostrarBtnForm] = useState(true)
 
-  // Función para redirigir al login
-  function redireccionarAlLogin(){
-    router.push("/form/login")
-  }
-  
-  // Función para redirigir al registro
-  function redirecionarSingUo(){
-    router.push("/form/singUp")
-  }
 
-  // Función para redirigir a la tienda o al login según el token
   function redireccion(){
     const token = localStorage.getItem("access_token")
     if(token){
@@ -31,7 +19,6 @@ const page = () => {
     }
   }
 
-// Efecto para ocultar botones de formulario si hay token
 useEffect(() => {
   const token = localStorage.getItem("access_token")
   if(token){
@@ -69,8 +56,8 @@ useEffect(() => {
          {
           mostrarBtnForm && (
            <div>
-             <Button txt='iniciar sesion'click={redirecionarSingUo} ></Button>
-             <Button txt='resgistrame' click={redireccionarAlLogin} ></Button>
+             <Button txt='iniciar sesion'click={()=> redirecionar("/form/singUp",router) } ></Button>
+             <Button txt='resgistrame' click={()=> redirecionar("/form/login",router)} ></Button>
            </div>
           )
          }

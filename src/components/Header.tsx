@@ -1,29 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { ContextoProductos } from "@/app/Providers/ProviderProductos";
 
+import HeaderLateral from "./headerLateral";
+import { ContextoHeaderLateralCelular } from "@/app/Providers/ProviderBoolHeaderLateralCelualr";
 interface TypeProps {
   setPalabra: React.Dispatch<React.SetStateAction<string>>;
 }
 const Header = ({ setPalabra }: TypeProps) => {
   const { carrito } = useContext(ContextoProductos);
+  const { setMostrarHeaderLateralCelular} = useContext(ContextoHeaderLateralCelular)
+
   return (
     <header
       id="header-horizontal"
       className="bg-background border-b px-4 md:px-6 py-3 flex items-center justify-between"
     >
-      <div id="icon-menu-header">x</div>
+      <div id="icon-menu-header" onClick={()=> setMostrarHeaderLateralCelular(true)}>x</div>
       <div></div>
       <div className="flex items-center gap-4">
         <input
           onChange={(e) => setPalabra(e.target.value)}
-          type=""
+          type="text"
           placeholder="buscar"
-          style={{
-            padding: "5px 3px",
-            border: "1px solid black",
-            borderRadius: "10px",
-          }}
+          className="p-1 px-2 border border-black rounded-md"
         />
         <a className="relative" href="#">
           <Link href="./tienda/carrito">
@@ -54,7 +54,7 @@ const Header = ({ setPalabra }: TypeProps) => {
             {carrito.length}
           </div>
         </a>
-        <Link href="./tienda/perfil">
+        <Link href="/perfil" replace={true}>
           <div
             className="icon-perfil"
             style={{

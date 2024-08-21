@@ -4,106 +4,62 @@ import { useRouter } from "next/navigation"; // Importar desde next/navigation
 import { Label } from "@/components/ui/form/label";
 import { Input } from "@/components/ui/form/Input";
 import { cn } from "@/lib/utils";
-import { IconBrandGoogle } from "@tabler/icons-react";
+import {  IconBrandGoogle } from "@tabler/icons-react";
 import Link from "next/link";
 import { obtenerToken, redirecionar } from "@/app/funciones";
 
 interface SignUpTypes {
-  firstname: string;
-  lastname: string;
   email: string;
   password: string;
-  celular: string;
 }
 
 export default function Page() {
-  ///////////////////////////////////////////////////////////////////////
-  // STATES
-  const [formData, setFormData] = useState<SignUpTypes>({
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    celular: ""
-  });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>("");
-  
-  ///////////////////////////////////////////////////////////////////////
-  // USEROUTER
-  const router = useRouter();
-  ///////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////////
-  // FUNCIONES 
+  const [credenciales, setCredenciales] = useState<SignUpTypes>({
+    email: "",
+    password: ""
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  
+
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    ///////////////////////////////////////
-    // Validaciones 
-    const validaciones = [
-      { campo: 'firstname', mensaje: 'El nombre es obligatorio' },
-      { campo: 'lastname', mensaje: 'El apellido es obligatorio' },
-      { campo: 'email', mensaje: 'El email es obligatorio', validacion: (email: string) => /\S+@\S+\.\S+/.test(email) },
-      { campo: 'password', mensaje: 'La contraseña debe tener al menos 8 caracteres', validacion: (pass: string) => pass.length >= 8 },
-      { campo: 'celular', mensaje: 'El celular debe tener 10 dígitos', validacion: (cel: string) => /^\d{10}$/.test(cel) }
-    ];
-
-    for (const { campo, mensaje, validacion } of validaciones) {
-      if (!formData[campo as keyof SignUpTypes]) {
-        setError(mensaje);
-        return;
-      }
-      
-      if (validacion && !validacion(formData[campo as keyof SignUpTypes])) {
-        setError(mensaje);
-        return;
-      }
-    }
-     ///////////////////////////////////////
+    
     setLoading(true);
-
-    const credenciales  = {
-      name: `${formData.firstname} ${formData.lastname}`,
-      email: formData.email,
-      password: formData.password,
-      phoneNumber: formData.celular
-    };
-
+    setError(null);
     try {
-      const response = await fetch("http://localhost:4000/api/user/create", {
-        method: "POST",
+      const response = await fetch(`http://localhost:4000/api/auth/login`, {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(credenciales)
+        body: JSON.stringify(credenciales),
       });
-      
-      
+      const data = await response.json();
       if (!response.ok) {
         const errorData = await response.json();
         setError(errorData.message)
       }
-      const data = await response.json();
-      setError("se registro con exito")
-      router.push("/form/singUp")
-    
-
-    } catch (error: any) {
-      console.error("Failed to create user:", error);
+     
+      if (data.access_token) {
+        localStorage.setItem('access_token', data.access_token); 
+        router.push('/tienda');
+      }
+      
+    } catch (err: any) {
+      throw new Error(err)
+   
     } finally {
       setLoading(false);
     }
   };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-  };
-///////////////////////////////////////////////////////////////////////
-   // EFFECT 
 
   useEffect(() => {
     // si retorna el token lo redireciona y si tira undefine no se ejecuta 
@@ -112,46 +68,44 @@ export default function Page() {
     }
   }, [])
   
-///////////////////////////////////////////////////////////////////////
- // COMPONENTE 
+
+
+   //////////////////////////////////////////////////////////////////////////////////////
+
   return (
-    <div style={{ display: "flex", width: "100%", background: "black" }}>
+    <div style={{ width: "100%", height: "100vh", background: "black", alignItems: "center", paddingTop: "40px" }}>
       <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-        <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-          Registrate
-        </h2>
+        <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">Iniciar sesión</h2>
         <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-          Bienvenido, regístrate para poder acceder a todos nuestros productos.
+          Inicia sesión para para acceder a nuestros productos
         </p>
         <form className="my-8" onSubmit={handleSubmit}>
-          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-            <LabelInputContainer>
-              <Label htmlFor="firstname">Nombre</Label>
-              <Input id="firstname" placeholder="Nombre" type="text" value={formData.firstname} onChange={handleChange} />
-            </LabelInputContainer>
-            <LabelInputContainer>
-              <Label htmlFor="lastname">Apellido</Label>
-              <Input id="lastname" placeholder="Apellido" type="text" value={formData.lastname} onChange={handleChange} />
-            </LabelInputContainer>
-          </div>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" placeholder="Ejemplo@gmail.com" type="email" value={formData.email} onChange={handleChange} />
+            <Input
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCredenciales((prev) => ({ ...prev, email: e.target.value }))}
+              id="email"
+              placeholder="ejemplo@gmail.com"
+              type="email"
+              value={credenciales.email}
+            />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="celular">Celular</Label>
-            <Input id="celular" placeholder="123" type="tel" value={formData.celular} onChange={handleChange} />
-          </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="password">Contraseña</Label>
-            <Input id="password" placeholder="••••••••" type="password" value={formData.password} onChange={handleChange} />
+            <Label htmlFor="password">Password</Label>
+            <Input
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCredenciales((prev) => ({ ...prev, password: e.target.value }))}
+              id="password"
+              placeholder="••••••••"
+              type="password"
+              value={credenciales.password}
+            />
           </LabelInputContainer>
           <button
             className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
             type="submit"
             disabled={loading}
           >
-            {loading ? 'Cargando...' : 'Enviar →'}
+            {loading ? 'Cargando...' : 'Sign up →'}
             <BottomGradient />
           </button>
           {error && <p className="text-red-500 mt-4">{error}</p>}
@@ -170,7 +124,7 @@ export default function Page() {
           </div>
         </form>
         <p style={{ color: "white" }}>
-          ¿Ya tienes una cuenta? <Link style={{ color: "blue" }} href="/form/login" replace={true}>Iniciar sesión</Link>
+          ¿No tienes una cuenta? <Link href="/form/singUp" replace={true} >Regístrate</Link>
         </p>
       </div>
     </div>

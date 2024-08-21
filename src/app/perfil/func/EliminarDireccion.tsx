@@ -1,11 +1,12 @@
-import { fetchUser } from "@/hooks/fetchUser";
-
-export const deleteDireccionUser = async (id: string, setState: React.Dispatch<React.SetStateAction<any[]>>) => {
+import {fetchUser} from "@/hooks/fetchUser"
+export const eliminarDireccion = async (id: string, setDataUser:any) => {
   try {
     await fetchUser(`http://localhost:4000/api/address/${id}`, "DELETE");
-    setState((prev: any[]) => prev.filter((dir: { id: string }) => dir.id !== id));
+    setDataUser((prev:any)  => ({
+      ...prev,
+      addresses: prev.addresses.filter((address:any) => address.id !== id)
+    }));
   } catch (err) {
     console.error("Error al eliminar la dirección:", err);
   }
 };
-
